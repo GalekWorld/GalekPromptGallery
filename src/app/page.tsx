@@ -27,9 +27,17 @@ export default function Home() {
     try {
       const response = await fetch('/api/images')
       const data = await response.json()
-      setImages(data)
+
+      // Verificar que data sea un array antes de asignar
+      if (Array.isArray(data)) {
+        setImages(data)
+      } else {
+        console.error('API returned non-array data:', data)
+        setImages([])
+      }
     } catch (error) {
       console.error('Error fetching images:', error)
+      setImages([])
     } finally {
       setLoading(false)
     }
