@@ -1,20 +1,12 @@
-import { NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+} catch (error: any) {
+  console.error('Error fetching images:', error)
 
-export async function GET() {
-  try {
-    const images = await db.imagePrompt.findMany({
-      orderBy: {
-        createdAt: 'desc'
-      }
-    })
-
-    return NextResponse.json(images)
-  } catch (error) {
-    console.error('Error fetching images:', error)
-    return NextResponse.json(
-      { error: 'Error al obtener las imágenes' },
-      { status: 500 }
-    )
-  }
+  return NextResponse.json(
+    {
+      error: 'Error al obtener las imágenes',
+      message: error?.message ?? String(error),
+      code: error?.code,
+    },
+    { status: 500 }
+  )
 }
