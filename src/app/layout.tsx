@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -60,15 +59,12 @@ export default function RootLayout({
         {children}
         <Toaster />
 
-        {/* Adsterra global script (popunder/social bar/etc.) */}
+        {/* Adsterra global script */}
         <Script
           id="adsterra-global"
           src="https://processesshaken.com/22/86/f2/2286f26fbcfe36e39fa84628dbc02bb5.js"
           strategy="afterInteractive"
         />
-
-        {/* Vercel Analytics */}
-        <Analytics />
       </body>
     </html>
   );
