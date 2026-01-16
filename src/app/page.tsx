@@ -1,47 +1,48 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { ImageCard } from '@/components/ImageCard'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Card, CardHeader, CardFooter } from '@/components/ui/card'
-import { Instagram } from 'lucide-react'
+import { useEffect, useState } from "react";
+import Script from "next/script";
+import { ImageCard } from "@/components/ImageCard";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardHeader, CardFooter } from "@/components/ui/card";
+import { Instagram } from "lucide-react";
 
 interface ImagePrompt {
-  id: string
-  title: string
-  imageUrl: string
-  prompt: string
-  description?: string
-  createdAt: string
+  id: string;
+  title: string;
+  imageUrl: string;
+  prompt: string;
+  description?: string;
+  createdAt: string;
 }
 
 export default function Home() {
-  const [images, setImages] = useState<ImagePrompt[]>([])
-  const [loading, setLoading] = useState(true)
+  const [images, setImages] = useState<ImagePrompt[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchImages()
-  }, [])
+    fetchImages();
+  }, []);
 
   const fetchImages = async () => {
     try {
-      const response = await fetch('/api/images')
-      const data = await response.json()
+      const response = await fetch("/api/images");
+      const data = await response.json();
 
       // Verificar que data sea un array antes de asignar
       if (Array.isArray(data)) {
-        setImages(data)
+        setImages(data);
       } else {
-        console.error('API returned non-array data:', data)
-        setImages([])
+        console.error("API returned non-array data:", data);
+        setImages([]);
       }
     } catch (error) {
-      console.error('Error fetching images:', error)
-      setImages([])
+      console.error("Error fetching images:", error);
+      setImages([]);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -75,13 +76,25 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold mb-3">
-            Galería de Prompts
-          </h2>
+          <h2 className="text-3xl font-bold mb-3">Galería de Prompts</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explora nuestra colección de imágenes creadas con IA. 
-            Obtén acceso a los prompts siguiéndonos en Instagram.
+            Explora nuestra colección de imágenes creadas con IA. Obtén acceso a
+            los prompts siguiéndonos en Instagram.
           </p>
+        </div>
+
+        {/* Adsterra Native Banner */}
+        <div className="my-6 flex justify-center">
+          <div className="w-full max-w-3xl">
+            <Script
+              id="adsterra-native"
+              async
+              data-cfasync="false"
+              src="https://processesshaken.com/a82a9df3ea10819f842a19a89208aea4/invoke.js"
+              strategy="afterInteractive"
+            />
+            <div id="container-a82a9df3ea10819f842a19a89208aea4" />
+          </div>
         </div>
 
         {loading ? (
@@ -133,10 +146,20 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t py-6 mt-auto">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© 2024 Galek Prompt Gallery. Todos los derechos reservados.</p>
+        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground space-y-3">
+          <p>©️ 2024 Galek Prompt Gallery. Todos los derechos reservados.</p>
+
+          {/* Adsterra Direct Link (solo bajo click) */}
+          <a
+            href="https://processesshaken.com/xhi14cwnnr?key=4a1e29b4a0b2e255558a75288c401351"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-4 py-2 rounded-md border hover:bg-muted transition"
+          >
+            Ver oferta
+          </a>
         </div>
       </footer>
     </div>
-  )
+  );
 }
